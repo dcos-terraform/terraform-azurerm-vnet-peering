@@ -15,10 +15,12 @@
  *   version = "~> 0.2.0"
  *
  *   cluster_name               = "${var.cluster_name}"
- *   local_resource_group_name  = "cluster1"
+ *   local_region_network       = "master"
+ *   local_resource_group_name  = "rg-master"
  *   local_vnet_name            = "${var.local_virtual_network_name}"
  *   local_vnet_id              = "${var.local_virtual_network_id}"
- *   remote_resource_group_name = "cluster2"
+ *   remote_region_network      = "eus"
+ *   remote_resource_group_name = "rg-eus-private-agents"
  *   remote_vnet_name           = "${var.remote_virtual_network_name}"
  *   remote_vnet_id             = "${var.remote_virtual_network_id}"
  * }
@@ -28,7 +30,7 @@
 provider "azure" {}
 
 resource "azurerm_virtual_network_peering" "local" {
-  name                         = "${var.cluster_name}-${var.local_vnet_name}-${var.remote_vnet_name}"
+  name                         = "${var.cluster_name}-${var.local_region_network}-${var.remote_region_network}"
   resource_group_name          = "${var.local_resource_group_name}"
   virtual_network_name         = "${var.local_vnet_name}"
   remote_virtual_network_id    = "${var.remote_vnet_id}"
@@ -38,7 +40,7 @@ resource "azurerm_virtual_network_peering" "local" {
 }
 
 resource "azurerm_virtual_network_peering" "remote" {
-  name                         = "${var.cluster_name}-${var.remote_vnet_name}-${var.local_vnet_name}"
+  name                         = "${var.cluster_name}-${var.remote_region_network}-${var.local_region_network}"
   resource_group_name          = "${var.remote_resource_group_name}"
   virtual_network_name         = "${var.remote_vnet_name}"
   remote_virtual_network_id    = "${var.local_vnet_id}"

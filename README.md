@@ -14,10 +14,12 @@ module "vnet-peering" {
   version = "~> 0.2.0"
 
   cluster_name               = "${var.cluster_name}"
-  local_resource_group_name  = "cluster1"
+  local_region_network       = "master"
+  local_resource_group_name  = "rg-master"
   local_vnet_name            = "${var.local_virtual_network_name}"
   local_vnet_id              = "${var.local_virtual_network_id}"
-  remote_resource_group_name = "cluster2"
+  remote_region_network      = "eus"
+  remote_resource_group_name = "rg-eus-private-agents"
   remote_vnet_name           = "${var.remote_virtual_network_name}"
   remote_vnet_id             = "${var.remote_virtual_network_id}"
 }
@@ -28,9 +30,11 @@ module "vnet-peering" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | cluster\_name | Name of the DC/OS cluster | string | n/a | yes |
+| local\_region\_network | Local region network name, for naming the VNET peering resource | string | n/a | yes |
 | local\_resource\_group\_name | Local resource group name | string | n/a | yes |
 | local\_vnet\_id | Local VNET ID | string | n/a | yes |
 | local\_vnet\_name | Local VNET name | string | n/a | yes |
+| remote\_region\_network | Remote region network name, for naming the VNET peering resource | string | n/a | yes |
 | remote\_resource\_group\_name | Remote resource group name | string | n/a | yes |
 | remote\_vnet\_id | Remote VNET ID | string | n/a | yes |
 | remote\_vnet\_name | Remote VNET name | string | n/a | yes |
@@ -41,3 +45,4 @@ module "vnet-peering" {
 |------|-------------|
 | local\_peering\_id | Local peering ID |
 | remote\_peering\_id | Remote peering ID |
+
