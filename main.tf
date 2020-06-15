@@ -27,9 +27,7 @@
  * ```
  */
 
-provider "azurerm" {
-  version = "~> 1.0"
-}
+provider "azurerm" {}
 
 resource "azurerm_virtual_network_peering" "local" {
   name                         = "${var.cluster_name}-${var.local_region_network}-${var.remote_region_network}"
